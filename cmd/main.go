@@ -24,13 +24,12 @@ func main() {
 	view := tview.NewFlex()
 	heading := tview.NewTextView().
 		SetText(art).SetTextAlign(tview.AlignCenter).SetTextColor(tcell.ColorBlue)
+
 	list := tview.NewList().
 		AddItem("Tmux", "", '1', func() { tab.OpenTab(0) }).
 		AddItem("Gymkhana", "", '2', func() { tab.OpenTab(1) }).
 		AddItem("Competitive Programming", "", '3', func() { tab.OpenTab(2) }).
-		AddItem("New", "", 'q', func() {
-			app.Stop()
-		})
+		AddItem("New", "", 'q', func() { app.Stop() })
 	list.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyEsc {
 			app.Stop()
@@ -46,6 +45,7 @@ func main() {
 			AddItem(list, 0, 1, true).
 			AddItem(tview.NewBox(), 0, 1, false),
 			0, 3, true)
+
 	if err := app.SetRoot(view, true).Run(); err != nil {
 		panic(err)
 	}

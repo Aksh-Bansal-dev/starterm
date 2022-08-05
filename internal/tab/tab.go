@@ -1,27 +1,25 @@
 package tab
 
 import (
-	"fmt"
+	"log"
+	"os"
 	"os/exec"
 )
 
 func OpenTab(n int) {
 	app := "gnome-terminal"
-
+	homeDir, _ := os.UserHomeDir()
 	args := [][]string{
 		{"--tab", "--", "tmux"},
-		{"--tab", "--working-directory", "/home/akshbansal/d/temp"},
-		{"--tab", "--working-directory", "/home/akshbansal/d/temp", "--", "tmux"},
+		{"--tab", "--working-directory", homeDir + "/d/web/github/gymkhana"},
+		{"--tab", "--working-directory", homeDir + "/d/temp", "--", "tmux"},
 	}
 
 	cmd := exec.Command(app, args[n]...)
-	stdout, err := cmd.Output()
+	_, err := cmd.Output()
 
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Fatal("invalid command")
 		return
 	}
-
-	// Print the output
-	fmt.Println(string(stdout))
 }
