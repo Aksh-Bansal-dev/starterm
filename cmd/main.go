@@ -27,7 +27,7 @@ func main() {
 
 	list := tview.NewList().
 		AddItem("Tmux", "", '1', func() { tab.OpenTab(0) }).
-		AddItem("Gymkhana", "", '2', func() { tab.OpenTab(1) }).
+		AddItem("Starterm", "", '2', func() { tab.OpenTab(1) }).
 		AddItem("Competitive Programming", "", '3', func() { tab.OpenTab(2) }).
 		AddItem("New", "", 'q', func() { app.Stop() })
 	list.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
