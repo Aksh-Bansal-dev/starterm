@@ -5,7 +5,7 @@ import (
 	"github.com/rivo/tview"
 
 	"github.com/Aksh-Bansal-dev/starterm/internal/config"
-	"github.com/Aksh-Bansal-dev/starterm/internal/tab"
+	"github.com/Aksh-Bansal-dev/starterm/internal/runner"
 )
 
 const art = `
@@ -21,19 +21,23 @@ const art = `
 `
 
 func main() {
+	config := config.GetConfig()
 	app := tview.NewApplication()
 	view := tview.NewFlex()
+
+	headingText := config.Heading
+	if headingText == "" {
+		headingText = art
+	}
+
 	heading := tview.NewTextView().
-		SetText(art).SetTextAlign(tview.AlignCenter).SetTextColor(tcell.ColorBlue)
+		SetText(headingText).SetTextAlign(tview.AlignCenter).SetTextColor(tcell.ColorBlue)
 
 	list := tview.NewList().
-		AddItem("Tmux", "", '1', func() { tab.OpenTab(0) }).
-		AddItem("Starterm", "", '2', func() { tab.OpenTab(1) }).
-		AddItem("Competitive Programming", "", '3', func() { tab.OpenTab(2) }).
 		AddItem("New", "", 'q', func() { app.Stop() })
-	config := config.GetConfig()
 	for _, item := range config.ConfigItems {
-		list.AddItem(item.Name, item.Description, []rune(item.Key)[0], func() { tab.OpenTab(1) })
+		foo := item.Cmd
+		list.AddItem(item.Name, item.Description, []rune(item.Key)[0], func() { runner.Run(foo) })
 	}
 	list.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyEsc {
