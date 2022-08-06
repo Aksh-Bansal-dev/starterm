@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"os"
 )
 
 type ConfigItem struct {
@@ -18,7 +19,8 @@ type Config struct {
 }
 
 func GetConfig() Config {
-	content, err := ioutil.ReadFile("./config.json")
+	home, _ := os.UserHomeDir()
+	content, err := ioutil.ReadFile(home + "/.starterm.json")
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)
 	}
