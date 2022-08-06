@@ -4,6 +4,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 
+	"github.com/Aksh-Bansal-dev/starterm/internal/config"
 	"github.com/Aksh-Bansal-dev/starterm/internal/tab"
 )
 
@@ -30,6 +31,10 @@ func main() {
 		AddItem("Starterm", "", '2', func() { tab.OpenTab(1) }).
 		AddItem("Competitive Programming", "", '3', func() { tab.OpenTab(2) }).
 		AddItem("New", "", 'q', func() { app.Stop() })
+	config := config.GetConfig()
+	for _, item := range config.ConfigItems {
+		list.AddItem(item.Name, item.Description, []rune(item.Key)[0], func() { tab.OpenTab(1) })
+	}
 	list.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyEsc {
 			app.Stop()

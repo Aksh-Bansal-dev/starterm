@@ -11,7 +11,7 @@ func OpenTab(n int) {
 	homeDir, _ := os.UserHomeDir()
 	args := [][]string{
 		{"--tab", "--", "tmux"},
-		{"--tab", "--working-directory", homeDir + "/d/web/github/gymkhana"},
+		{"--tab", "--working-directory", homeDir + "/d/code/web/github/gymkhana"},
 		{"--tab", "--working-directory", homeDir + "/d/temp", "--", "tmux"},
 	}
 
